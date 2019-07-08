@@ -1,0 +1,22 @@
+FROM python:3.6
+
+ENV PYTHONUNBUFFERED 1
+
+RUN mkdir /code
+
+WORKDIR /code
+
+ARG PROJECT=root
+ARG PROJECT_DIR=~/Users/cduong/desktop/docker-django/mysite
+
+ADD requirements.txt /code/
+
+RUN pip install -q -r requirements.txt
+RUN pip install tcell_agent
+
+ADD . /code
+
+EXPOSE 8000
+STOPSIGNAL SIGINT 
+
+CMD ./entrypoint.sh
